@@ -5,6 +5,7 @@ import Md5Salaus from './Md5Salaus';
 import NWCustomerFetch from './NWCustomerFetch';
 import TypicodeFetch from './TypicodeFetch';
 import Viestit from './Viestit';
+import Login from './Login';
 
 class Navigaatio extends Component {
   render() {
@@ -15,6 +16,7 @@ class Navigaatio extends Component {
               <nav className="navbar navbar-expand-lg navbar-light bg-light">
               <ul className="navbar-nav mr-auto">
                 <li><Link to={'/'} className="nav-link"> Home </Link></li>
+                <li><Link to={'/Login'} className="nav-link">Login</Link></li>
                 <li><Link to={'/NWCustomerFetch'} className="nav-link">NWCustomerFetch</Link></li>
                 <li><Link to={'/TypicodeFetch'} className="nav-link">TypicodeFetch</Link></li>
                 <li><Link to={'/Viestit'} className="nav-link">Viestit</Link></li>
@@ -24,6 +26,7 @@ class Navigaatio extends Component {
               <hr />
               <Switch>
                   <Route exact path='/' component={AnalogWatch} />
+                  <Route path='/Login' component={Login} />
                   <Route path='/NWCustomerFetch' component={NWCustomerFetch} />
                   <Route path='/TypicodeFetch' component={TypicodeFetch} />
                   <Route path='/Viestit' component={Viestit} />
