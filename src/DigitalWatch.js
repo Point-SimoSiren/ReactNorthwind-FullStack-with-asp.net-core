@@ -1,41 +1,41 @@
-import React, {Component} from 'react';
-import './App.css';
-import Helpit from './Helpit';
+import React, { Component } from 'react'
+import './App.css'
+import Helpit from './Helpit'
 
 class Kello extends Component {
     render() {
-      return (
-        <h4>Kello on nyt: {this.props.kellonaika}</h4>
-      );
+        return (
+            <h4>Kello on nyt: {this.props.kellonaika}</h4>
+        )
     }
-  }
-  
+}
+
 
 class DigitalWatch extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             time: new Date().toLocaleTimeString(),
             date: new Date().toLocaleDateString(),
-        };
+        }
     }
 
     componentDidMount() {
         this.intervalID = setInterval(
             () => this.tick(),
             1000
-        );
+        )
     }
 
     tick() {
         this.setState({
             time: new Date().toLocaleTimeString(),
             date: new Date().toLocaleDateString(),
-        });
+        })
     }
 
     componentWillUnmount() {
-        clearInterval(this.intervalID);
+        clearInterval(this.intervalID)
     }
 
     render() {
@@ -46,8 +46,8 @@ class DigitalWatch extends Component {
                 <Helpit moduli="DigitalWatch" />
                 <Kello kellonaika={this.state.time} />
             </div>
-    );
-  }
+        )
+    }
 }
 
-export default DigitalWatch;
+export default DigitalWatch

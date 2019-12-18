@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Clock from 'react-clock';
-import Helpit from './Helpit';
 
 
 class AnalogWatch extends Component {
     constructor(props) {
         super(props);
-        console.log("AnalogWatch: constructor-metodissa");
+
         this.state = {
             pvm: new Date()
         };
@@ -15,9 +14,8 @@ class AnalogWatch extends Component {
     componentDidMount() {
         this.intervalID = setInterval(
             () => this.tick(),
-            5000
+            1000
         );
-        console.log("AnalogWatch: componentDidMount-metodissa");
     }
     tick() {
         console.log("AnalogWatch: tickissä");
@@ -27,16 +25,16 @@ class AnalogWatch extends Component {
     }
     componentWillUnmount() {
         clearInterval(this.intervalID);
-        console.log("AnalogWatch: componentWillUnmount-metodissa");
+
     }
     render() {
-        console.log("AnalogWatch: tultiin render-metodiin");
+
         return (
             <div className="analogikello">
                 <Clock value={this.state.pvm} size={500} hourMarksLength={20} />
             </div>
-    );
-  }
+        );
+    }
 }
 
 export default AnalogWatch;

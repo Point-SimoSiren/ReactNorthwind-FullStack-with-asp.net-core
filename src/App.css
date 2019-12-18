@@ -26,14 +26,20 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.otsikko {
+  background-color: #282c34;
+  font-weight: bold;
+  color: white;
+  
+}
 .App-link {
   color: #09d3ac;
 }
 
 .box1 {
   background-color: burlywood;
-  width: 100%;
+  width: 90%;
+  margin-left: 2%;
   height:1200px;
   flex-direction: column;
   justify-content: center;
@@ -53,7 +59,7 @@
 }
 .box4 {
   background-color: antiquewhite;
-  width: 700px;
+  width: 500px;
   height:1200px;
   float: left;
 }
@@ -77,5 +83,24 @@ th {
 
 }
 tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+
+
+
+
+#deletetbl th, td {
+  text-align: left;
+  padding: 5px;
+}
+
+#deletetbl th {
+  background-color: orange;
+
+}
+#deletetbl tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+#deletetbl tr:nth-child(odd) {
   background-color: #f2f2f2
 }

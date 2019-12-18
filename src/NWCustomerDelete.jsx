@@ -1,10 +1,15 @@
-import React, { Component } from 'react'
-import './App.css'
+import React, { Component } from 'react';
+import './App.css';
 
-class NWCustomerEdit extends Component {
+
+class NWCustomerDelete extends Component {
     constructor(props) {
         super(props);
-        this.state = { asiakasObj: [], CustomerID: '', CompanyName: '', ContactName: '', ContactTitle: '', Address: '', PostalCode: '', City: '', Country: '', Phone: '', Fax: '' };
+        this.state = {
+            asiakasObj: [], CustomerID: '', CompanyName: '', ContactName: '',
+            ContactTitle: '', Address: '', PostalCode: '', City: '', Country: '', Phone: '', Fax: ''
+        };
+
         this.handleChangeCustomerID = this.handleChangeCustomerID.bind(this);
         this.handleChangeCompanyName = this.handleChangeCompanyName.bind(this);
         this.handleChangeContactName = this.handleChangeContactName.bind(this);
@@ -16,10 +21,10 @@ class NWCustomerEdit extends Component {
         this.handleChangePhone = this.handleChangePhone.bind(this);
         this.handleChangeFax = this.handleChangeFax.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlePerformDelete = this.handlePerformDelete.bind(this);
     }
 
     dismiss() {
-        console.log("Ollaan NWCustomerEDIT -dismiss()-rutiinissa - - - - - - ");
         this.props.unmountMe();
     }
 
@@ -67,17 +72,16 @@ class NWCustomerEdit extends Component {
     }
 
     handleSubmit(event) {
-        alert('Päivitettävä asiakas: ' + this.state.CustomerID);
         event.preventDefault();
         this.InsertoiKantaan();
     }
 
     callBackRoutine() {
-        console.log('NWCustomerEDIT: . . . . callBackRoutine >>>---' + this.state.asiakasObj.CustomerID);
+        console.log('NWCustomerDelete: . . . . callBackRoutine >>>---' + this.state.asiakasObj.CustomerID)
     }
 
     componentDidMount() {
-        console.log("NWCustomerEDIT-componentDidMount this.props.asiakasObj.customerId: " + this.props.asiakasObj.customerId);
+        console.log("NWCustomerDelete-componentDidMount this.props.asiakasObj.customerId: " + this.props.asiakasObj.customerId);
         this.setState({
             CustomerID: this.props.asiakasObj.customerId,
             CompanyName: this.props.asiakasObj.companyName,
@@ -96,60 +100,72 @@ class NWCustomerEdit extends Component {
         };
     }
 
-    InsertoiKantaan() {
-        // Luodaan asiakasobjekti, johon haetaan state:sta tiedot                     
-        const asiakas = {
-            CustomerID: this.state.CustomerID,
-            CompanyName: this.state.CompanyName,
-            ContactName: this.state.ContactName,
-            ContactTitle: this.state.ContactTitle,
-            Address: this.state.Address,
-            PostalCode: this.state.PostalCode,
-            City: this.state.City,
-            Country: this.state.Country,
-            Phone: this.state.Phone,
-            Fax: this.state.Fax
-        };
-        // send an asynchronous request to the backend
-        const asiakasJson = JSON.stringify(asiakas);
-        console.log("asiakasJson = ", asiakasJson);
-        const apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
+    handlePerformDelete(event) {
+        event.preventDefault();
+        this.NWDeleteRestApista();
+    }
 
+    ResetDeleteDone() {
+        this.setState({
+            CustomerID: '',
+        })
+        this.handleClickTable();
+        this.HaeNWRestApista();
+    }
+
+    NWDeleteRestApista() {
+        let apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
+        //let apiUrl = 'https://webapiharjoituskoodi20191128035915.azurewebsites.net/nw/customer/' + this.state.CustomerID;
+        console.log("NWDeleteRestApista " + apiUrl);
         fetch(apiUrl, {
-            method: "PUT",
+            method: "DELETE",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: asiakasJson
+            body: null
         }).then((response) => response.json())
             .then((json) => {
                 const success = json;
-                console.log(`Response from server: ${success}.`);
+
+                //Back-end antaa käyttäjä notifikaation
+                alert(success);
+
                 if (success) {
-                    console.log("Pyyntö asiakkaan päivittämiseksi tehty -- -- -- -- --");
+
                     this.dismiss();
+                    //this.ResetDeleteDone();
                 }
             });
     }
 
     render() {
         return (
-            <form className="box3" onSubmit={this.handleSubmit}>
-                <input type="text" value={this.state.CustomerID} title="Syötä asiakastunnus" placeholder="CustomerID" onChange={this.handleChangeCustomerID} />
-                <input type="text" value={this.state.CompanyName} placeholder="CompanyName" onChange={this.handleChangeCompanyName} />
-                <input type="text" value={this.state.ContactName} placeholder="ContactName" onChange={this.handleChangeContactName} />
-                <input type="text" value={this.state.ContactTitle} placeholder="ContactTitle" onChange={this.handleChangeContactTitle} />
-                <input type="text" value={this.state.Address} placeholder="Address" onChange={this.handleChangeAddress} />
-                <input type="text" value={this.state.PostalCode} placeholder="PostalCode" onChange={this.handleChangePostalCode} />
-                <input type="text" value={this.state.City} placeholder="City" onChange={this.handleChangeCity} />
-                <input type="text" value={this.state.Country} placeholder="Country" onChange={this.handleChangeCountry} />
-                <input type="text" value={this.state.Phone} placeholder="Phone" onChange={this.handleChangePhone} />
-                <input type="text" value={this.state.Fax} placeholder="Fax" onChange={this.handleChangeFax} />
+            <form className="box4" key={this.state.CustomerID} onSubmit={this.handlePerformDelete}>
+                <table id="deletetbl">
+
+                    <tbody >
+                        <tr><td className="otsikko">Asiakastunnus:</td><td>{this.state.CustomerID}</td></tr>
+                        <tr><td className="otsikko">Firman nimi:</td><td>{this.state.CompanyName}</td></tr>
+                        <tr><td className="otsikko">Yhteyshlö:</td><td>{this.state.ContactName} </td></tr>
+                        <tr><td className="otsikko">Titteli:</td><td>{this.state.ContactTitle} </td></tr>
+                        <tr><td className="otsikko">Osoite:</td><td>{this.state.Address} </td></tr>
+                        <tr><td className="otsikko">Posno:</td><td>{this.state.PostalCode} </td></tr>
+                        <tr><td className="otsikko">Postmp:</td><td>{this.state.City} </td></tr>
+                        <tr><td className="otsikko">Maa:</td><td>{this.state.Country} </td></tr>
+                        <tr><td className="otsikko">Puh:</td><td>{this.state.Phone} </td></tr>
+                        <tr><td className="otsikko">Fax:</td><td>{this.state.Fax} </td></tr>
+                    </tbody>
+                </table>
                 <br />
-                <button type="submit">Talleta muutokset</button>
+                <h5>Seuraavaksi suoritetaan tarkistus tietokannassa.
+                    Mikäli asiakkaalla on tilauksia, ei poistoa suoriteta. Onnistuneesta poistosta tulee ilmoitus.
+                    Estetty poisto tulostaa kattavan raportin palvelimelta, josta rivien
+                    4-6 kohdalla löytyy yleisimmin perussyy.
+                </h5>
+                <button type="submit">Suorita</button>
             </form>
         );
     }
 }
-export default NWCustomerEdit
+export default NWCustomerDelete;
