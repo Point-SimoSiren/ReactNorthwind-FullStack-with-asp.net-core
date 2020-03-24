@@ -17,7 +17,7 @@ class NWProductsEdit extends Component {
         this.handleChangeUnitsInStock = this.handleChangeUnitsInStock.bind(this);
         this.handleChangeUnitsOnOrder = this.handleChangeUnitsOnOrder.bind(this);
         this.handleChangeReorderLevel = this.handleChangeReorderLevel.bind(this);
-        this.handleChangeDiscontinued = this.handleChangeDiscontinued.bind(this);
+        //this.handleChangeDiscontinued = this.handleChangeDiscontinued.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -26,7 +26,7 @@ class NWProductsEdit extends Component {
         this.props.unmountMe();
     }
 
-    //________HANDLE CHANGESSA INT PARSE: KOKEILE ILMA JOS ONGELMIA
+    //________HANDLE CHANGESSA INT PARSE: KOKEILE ILMAN JOS ONGELMIA
 
     handleChangeProductID(event) {
         var syöte = event.target.value;
@@ -66,13 +66,22 @@ class NWProductsEdit extends Component {
         var syöte = event.target.value;
         this.setState({ ...this.state, ReorderLevel: parseInt(syöte) });
     }
+
     handleChangeDiscontinued(event) {
-        var syöte = event.target.value;
-        this.setState({ ...this.state, Discontinued: syöte });
+        var täppä = event.target.value
+        if (täppä === "true") {
+
+            this.setState({ ...this.state, Discontinued: true })
+
+        }
+        else {
+            this.setState({ ...this.state, Discontinued: false })
+        }
+        console.log('setStaten jälkeen: ', this.state.Discontinued)
     }
 
     handleSubmit(event) {
-        alert('Päivitettävä tuote: ' + this.state.ProductID + this.props.tuoteObj.ProductName + this.props.tuoteObj.productName);
+        alert('Päivitettävä tuote: ' + this.state.ProductID + ' ' + this.props.tuoteObj.productName);
         event.preventDefault();
         this.InsertoiKantaan();
     }
@@ -86,10 +95,12 @@ class NWProductsEdit extends Component {
         this.setState({
             ProductID: parseInt(this.props.tuoteObj.productId),
             ProductName: this.props.tuoteObj.productName,
-            SupplierID: parseInt(this.props.tuoteObj.supplierID),
-            CategoryID: parseInt(this.props.tuoteObj.categoryID),
+            SupplierID: parseInt(this.props.tuoteObj.supplierId),
+            CategoryID: parseInt(this.props.tuoteObj.categoryId),
             QuantityPerUnit: this.props.tuoteObj.quantityPerUnit,
+            UnitsInStock: parseInt(this.props.tuoteObj.unitsInStock),
             UnitPrice: parseInt(this.props.tuoteObj.unitPrice),
+            UnitsOnOrder: parseInt(this.props.tuoteObj.unitsOnOrder),
             ReorderLevel: parseInt(this.props.tuoteObj.reorderLevel),
             Discontinued: this.props.tuoteObj.discontinued
         }
@@ -99,7 +110,7 @@ class NWProductsEdit extends Component {
     InsertoiKantaan() {
         // Luodaan tuoteobjekti, johon haetaan state:sta tiedot                     
         const tuote = {
-            ProductID: parseInt(this.state.ProductID),
+            ProductId: parseInt(this.state.ProductID),
             ProductName: this.state.ProductName,
             SupplierID: parseInt(this.state.SupplierID),
             CategoryID: parseInt(this.state.CategoryID),
@@ -113,7 +124,11 @@ class NWProductsEdit extends Component {
         // send an asynchronous request to the backend
         const tuoteJson = JSON.stringify(tuote);
         console.log("tuoteJson ------- ", tuoteJson);
-        const apiUrl = 'https://localhost:5002/nw/products/' + this.state.ProductID;
+
+        //const apiUrl = 'https://localhost:5002/nw/products/' + this.state.ProductID;
+
+        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/products/' + this.state.ProductID;
+
         console.log('----Käytetty url: -------- ', apiUrl)
 
         fetch(apiUrl, {
@@ -138,16 +153,28 @@ class NWProductsEdit extends Component {
         return (
             <div>
                 <form className="box3" onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.ProductID} title="Syötä tuotetunnus" placeholder="ProductID" onChange={this.handleChangeProductID} />
+                    <label>Tuotenimi</label>
                     <input type="text" value={this.state.ProductName} placeholder="ProductName" onChange={this.handleChangeProductName} />
-                    <input type="text" value={this.state.SupplierID} placeholder="SupplierID" onChange={this.handleChangeSupplierID} />
-                    <input type="text" value={this.state.CategoryID} placeholder="CategoryID" onChange={this.handleChangeCategoryID} />
+                    <label>Toimittajakoodi</label>
+                    <input type="number" value={this.state.SupplierID} placeholder="SupplierID" onChange={this.handleChangeSupplierID} />
+                    <label>Kategoriakoodi</label>
+                    <input type="number" value={this.state.CategoryID} placeholder="CategoryID" onChange={this.handleChangeCategoryID} />
+                    <label>Pakkauskoko</label>
                     <input type="text" value={this.state.QuantityPerUnit} placeholder="QuantityPerUnit" onChange={this.handleChangeQuantityPerUnit} />
-                    <input type="text" value={this.state.UnitPrice} placeholder="UnitPrice" onChange={this.handleChangeUnitPrice} />
-                    <input type="text" value={this.state.UnitsInStock} placeholder="UnitsInStock" onChange={this.handleChangeUnitsInStock} />
-                    <input type="text" value={this.state.UnitsOnOrder} placeholder="UnitsOnOrder" onChange={this.handleChangeUnitsOnOrder} />
-                    <input type="text" value={this.state.ReorderLevel} placeholder="ReorderLevel" onChange={this.handleChangeReorderLevel} />
-                    <input type="text" value={this.state.Discontinued} placeholder="Discontinued" onChange={this.handleChangeDiscontinued} />
+                    <label>Yksikkö hinta alv 0</label>
+                    <input type="number" value={this.state.UnitPrice} placeholder="UnitPrice" onChange={this.handleChangeUnitPrice} />
+                    <label>Varastosaldo</label>
+                    <input type="number" value={this.state.UnitsInStock} placeholder="UnitsInStock" onChange={this.handleChangeUnitsInStock} />
+                    <label>Tilauskanta kpl</label>
+                    <input type="number" value={this.state.UnitsOnOrder} placeholder="UnitsOnOrder" onChange={this.handleChangeUnitsOnOrder} />
+                    <label>Tilauskynnys</label>
+                    <input type="number" value={this.state.ReorderLevel} placeholder="ReorderLevel" onChange={this.handleChangeReorderLevel} />
+
+                    <label>Poistotuote</label><br />
+                    <div onChange={this.handleChangeDiscontinued.bind(this)}>
+                        <input type="radio" value="true" name="disc" /> Kyllä
+                    <input type="radio" value="false" name="disc" /> Ei
+                    </div>
                     <br />
                     <button type="submit">Talleta muutokset</button>
                 </form>

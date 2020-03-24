@@ -5,12 +5,15 @@ import './App.css';
 class NWCustomerAdd extends Component {
     constructor(props) {
         super(props);
-        this.state = { CustomerID: '', CompanyName: '', ContactName: '', ContactTitle: '', Address: '', Phone: '', Fax: '' };
+        this.state = { CustomerID: '', CompanyName: '', ContactName: '', ContactTitle: '', Address: '', PostalCode: '', Country: '', City: '', Phone: '', Fax: '' };
         this.handleChangeCustomerID = this.handleChangeCustomerID.bind(this);
         this.handleChangeCompanyName = this.handleChangeCompanyName.bind(this);
         this.handleChangeContactName = this.handleChangeContactName.bind(this);
         this.handleChangeContactTitle = this.handleChangeContactTitle.bind(this);
         this.handleChangeAddress = this.handleChangeAddress.bind(this);
+        this.handleChangeCity = this.handleChangeCity.bind(this);
+        this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
+        this.handleChangeCountry = this.handleChangeCountry.bind(this);
         this.handleChangePhone = this.handleChangePhone.bind(this);
         this.handleChangeFax = this.handleChangeFax.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,6 +44,18 @@ class NWCustomerAdd extends Component {
         var syöte = event.target.value;
         this.setState({ ...this.state, Address: syöte });
     }
+    handleChangeCity(event) {
+        var syöte = event.target.value;
+        this.setState({ ...this.state, City: syöte });
+    }
+    handleChangePostalCode(event) {
+        var syöte = event.target.value;
+        this.setState({ ...this.state, PostalCode: syöte });
+    }
+    handleChangeCountry(event) {
+        var syöte = event.target.value;
+        this.setState({ ...this.state, Country: syöte });
+    }
     handleChangePhone(event) {
         var syöte = event.target.value;
         this.setState({ ...this.state, Phone: syöte });
@@ -64,6 +79,9 @@ class NWCustomerAdd extends Component {
             ContactName: this.state.ContactName,
             ContactTitle: this.state.ContactTitle,
             Address: this.state.Address,
+            City: this.state.City,
+            PostalCode: this.state.PostalCode,
+            Country: this.state.Country,
             Phone: this.state.Phone,
             Fax: this.state.Fax
         };
@@ -72,7 +90,10 @@ class NWCustomerAdd extends Component {
         const asiakasJson = JSON.stringify(asiakas);
         console.log("asiakasJson = " + asiakasJson);
 
-        const apiUrl = 'https://localhost:5002/nw/customers'
+        //let apiUrl = 'https://localhost:5002/nw/customers'
+
+        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/customers/'
+
         fetch(apiUrl, {
             method: "POST",
             headers: {
@@ -95,13 +116,16 @@ class NWCustomerAdd extends Component {
     render() {
         return (
             <form className="box3" onSubmit={this.handleSubmit}>
-                <input type="text" title="Syötä asiakastunnus" placeholder="CustomerID" onChange={this.handleChangeCustomerID} />
-                <input type="text" placeholder="CompanyName" onChange={this.handleChangeCompanyName} />
-                <input type="text" placeholder="ContactName" onChange={this.handleChangeContactName} />
-                <input type="text" placeholder="ContactTitle" onChange={this.handleChangeContactTitle} />
-                <input type="text" placeholder="Address" onChange={this.handleChangeAddress} />
-                <input type="text" placeholder="Phone" onChange={this.handleChangePhone} />
-                <input type="text" placeholder="Fax" onChange={this.handleChangeFax} />
+                <input type="text" title="Syötä asiakastunnus 5x ISO KIRJAIN" placeholder="ID = 5x ISO kirjain" onChange={this.handleChangeCustomerID} />
+                <input type="text" placeholder="Firma" onChange={this.handleChangeCompanyName} />
+                <input type="text" placeholder="Yhteyshlö" onChange={this.handleChangeContactName} />
+                <input type="text" placeholder="hlö titteli" onChange={this.handleChangeContactTitle} />
+                <input type="text" placeholder="Osoite" onChange={this.handleChangeAddress} />
+                <input type="text" placeholder="Postinumero" onChange={this.handleChangeAddress} />
+                <input type="text" placeholder="Kaupunki" onChange={this.handleChangeAddress} />
+                <input type="text" placeholder="Maa" onChange={this.handleChangeAddress} />
+                <input type="text" placeholder="Puh nro" onChange={this.handleChangePhone} />
+                <input type="text" placeholder="Fax nro" onChange={this.handleChangeFax} />
                 <br />
                 <button type="submit">Tallenna uudet tiedot</button>
             </form>

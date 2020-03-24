@@ -114,8 +114,10 @@ class NWCustomerDelete extends Component {
     }
 
     NWDeleteRestApista() {
-        let apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
-        //let apiUrl = 'https://webapiharjoituskoodi20191128035915.azurewebsites.net/nw/customer/' + this.state.CustomerID;
+        //let apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
+
+        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/customers/' + this.state.CustomerID;
+
         console.log("NWDeleteRestApista " + apiUrl);
         fetch(apiUrl, {
             method: "DELETE",

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Clock from 'react-clock';
+import { withRouter } from 'react-router-dom';
+
 
 
 class AnalogWatch extends Component {
@@ -31,7 +33,9 @@ class AnalogWatch extends Component {
 
         return (
             <div className="analogikello">
-                <Clock value={this.state.pvm} size={500} hourMarksLength={20} />
+                <h2 style={{ color: 'white' }}>Kiitos kuluneesta vuodesta</h2>
+                <Clock value={this.state.pvm} size={400} hourMarksLength={20} />
+
             </div>
         );
     }

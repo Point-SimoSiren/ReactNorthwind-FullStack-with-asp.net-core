@@ -33,7 +33,10 @@ class UserDelete extends Component {
 
     NWDeleteRestApista() {
 
-        const apiUrl = 'https://localhost:5002/nw/logins/' + this.props.userObj.loginId
+        //let apiUrl = 'https://localhost:5002/nw/logins/' + this.props.userObj.loginId
+
+        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/logins/' + this.props.userObj.loginId
+
         fetch(apiUrl, {
             method: 'DELETE',
             headers: {

@@ -17,7 +17,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color:red;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -27,9 +27,9 @@
   color: white;
 }
 .otsikko {
-  background-color: #282c34;
+  background-color: lightsalmon;
   font-weight: bold;
-  color: white;
+  color: black;
   
 }
 .App-link {
@@ -38,7 +38,7 @@
 
 .box1 {
   background-color: burlywood;
-  width: 90%;
+  width: 95%;
   margin-left: 2%;
   height:1200px;
   flex-direction: column;
@@ -54,7 +54,7 @@
 .box3 {
   background-color: chocolate;
   width: 235px;
-  height: 400px;
+  height: 1000px;
   float: left;
 }
 .box4 {
@@ -65,12 +65,13 @@
 }
 
 .analogikello {
-  background-color: gray;
+  background-color: silver;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 70%;
 }
 
 th, td {
@@ -79,11 +80,11 @@ th, td {
 }
 
 th {
-  background-color: orange;
+  background-color: whitesmoke;
 
 }
 tr:nth-child(even) {
-  background-color: #f2f2f2
+  background-color: whitesmoke;
 }
 
 

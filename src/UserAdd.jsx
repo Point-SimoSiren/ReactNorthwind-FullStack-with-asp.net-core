@@ -78,7 +78,10 @@ class UserAdd extends Component {
         // send an asynchronous request to the backend
         const userJson = JSON.stringify(newUser)
 
-        const apiUrl = 'https://localhost:5002/api/logins'
+        //let apiUrl = 'https://localhost:5002/nw/logins/'
+
+        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/logins'
+
         fetch(apiUrl, {
             method: "POST",
             headers: {

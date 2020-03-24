@@ -15,7 +15,7 @@ class UserFetch extends Component {
             renderChildAdd: true,
             renderChildEdit: true,
             renderChildDelete: true,
-            oneUser: [],
+            yksiUser: [],
             poistaUser: [],
             LoginID: '',
             LoginID2Del: ''
@@ -57,15 +57,17 @@ class UserFetch extends Component {
         this.setState({ visible: "help" })
     }
 
-
-
     handleSubmit() {
         console.log('HaeNWRestApista: . . . . handleSubmitissa')
         this.HaeNWRestApista()
     }
 
     HaeNWRestApista() {
-        let uri = 'https://localhost:5002/nw/logins'
+
+        let uri = 'https://aspnet-react-northwind.azurewebsites.net/nw/logins'
+
+        //let uri = 'https://localhost:5002/nw/logins'
+
         console.log('Haetaan rest apista: ', uri)
         fetch(uri)
             .then(response => response.json())
@@ -78,7 +80,7 @@ class UserFetch extends Component {
     handleClickEdit = (dataObj, event) => {
         console.log("<<handleClickEdit -- dataObj-tulostus>>", dataObj);
         this.setState({
-            oneUser: dataObj,
+            yksiUser: dataObj,
             visible: "editform",
             renderChildEdit: true
         })
@@ -103,11 +105,12 @@ class UserFetch extends Component {
         let taulukko = []
         //Luodaan taulukon otsikot
         let tHeaders = <tr>
+            <th>ID</th>
             <th>Etunimi</th>
             <th>Sukunimi</th>
             <th>Sähköposti</th>
             <th>Käyttäjätunnus</th>
-            <th>Access level</th>
+            <th>Käyttäjätaso</th>
         </tr>
 
         if (this.state.users.length > 0) {
@@ -115,6 +118,7 @@ class UserFetch extends Component {
                 const element = this.state.users[index]
 
                 taulukko.push(<tr key={element.loginId}>
+                    <td>{element.loginId}</td>
                     <td>{element.firstname}</td>
                     <td>{element.lastname}</td>
                     <td>{element.email}</td>
@@ -133,7 +137,7 @@ class UserFetch extends Component {
             return (
 
                 <div className="box1">
-                    <h1>Käyttäjien hallinta</h1>
+                    <h1>Käyttäjähallinta</h1>
                     <button onClick={this.handleClickHelp}>Näytä opaste</button>
                     <button onClick={this.handleClickAdd}>Lisää Käyttäjä</button>
 
@@ -160,7 +164,7 @@ class UserFetch extends Component {
                     <button onClick={this.handleClickHelp}>Näytä opaste</button>
                     <button onClick={this.handleClickTable}>Selaa käyttäjiä</button>
                 </div>
-                {this.state.renderChildEdit ? <UserEdit userObj={this.state.oneUser} unmountMe={this.handleChildUnmountEdit} /> : null}
+                {this.state.renderChildEdit ? <UserEdit userObj={this.state.yksiUser} unmountMe={this.handleChildUnmountEdit} /> : null}
             </div>
             )
 
@@ -180,7 +184,7 @@ class UserFetch extends Component {
                 <h1>Sovelluksen opasteet</h1>
                 <button onClick={this.handleClickAdd}>Lisää asiakas</button>
                 <button onClick={this.handleClickTable}>Selaa asiakkaita</button>
-                <Helpit moduli="NWCustomerFetch" />
+                <Helpit moduli="UserFetch" />
             </div>
             );
 

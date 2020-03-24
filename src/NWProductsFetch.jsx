@@ -74,8 +74,12 @@ class NWProductsFetch extends Component {
     }
 
     HaeNWRestApista() {
-        let uri = `https://localhost:5002/nw/Products/r?offset= ${this.state.start}
-    &limit= ${this.state.take}`
+
+        let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/Products/r?offset= ${this.state.start} &limit= ${this.state.take}`
+
+        //let uri = `https://localhost:5002/nw/Products/r?offset= ${this.state.start}
+        //&limit= ${this.state.take}`
+
         fetch(uri)
             .then(response => response.json())
             .then(json => {
@@ -93,7 +97,7 @@ class NWProductsFetch extends Component {
     handleClickDelete = (dataObj, event) => {
         console.log("Poistetaan tuote: ", dataObj)
         if (dataObj.unitsInStock > 0 || dataObj.unitsOnOrder > 0) {
-            alert('Tuotteita on yhä varastossa tai tilauksella! SORRY :(')
+            alert('TOP!' + ' ' + 'TOP! ' + 'Tuotteita on yhä varastossa tai tilauksella!')
         }
         else {
             this.setState({
@@ -136,7 +140,7 @@ class NWProductsFetch extends Component {
         //Ehdollinen return
         if (this.state.visible === "table") {
             return (<div className="box1">
-                <h1>Tietokantahaku</h1>
+                <h1>Tuotehallinta</h1>
                 <button onClick={this.handleClickHelp}>Näytä opaste</button>
                 <button onClick={this.handleClickAdd}>Lisää tuote</button>
                 <button onClick={this.handleClickPrev}>Edelliset</button>
@@ -158,7 +162,7 @@ class NWProductsFetch extends Component {
 
         } else if (this.state.visible === "editform") {
             console.log(this.state.yksiTuote)
-            return (<div className="box1">
+            return (<div className="box3">
                 <h1>Tuotetietojen muokkaus</h1>
                 <div>
                     <button onClick={this.handleClickHelp}>Näytä opaste</button>

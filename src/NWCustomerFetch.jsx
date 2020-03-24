@@ -80,9 +80,12 @@ class NWCustomerFetch extends Component {
   }
 
   HaeNWRestApista() {
-    //let uri = 'https://localhost:5001/nw/customer/r?offset='+this.state.start+'&limit='+this.state.take;
-    let uri = `https://localhost:5002/nw/customers/r?offset= ${this.state.start}
-    &limit= ${this.state.take}`
+
+    //let uri = `https://localhost:5002/nw/customers/r?offset= ${this.state.start}
+    //&limit= ${this.state.take}`
+
+    let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/customers/r?offset= ${this.state.start} &limit= ${this.state.take}`
+
     console.log("HaeOmaRestistä ", uri);
     fetch(uri)
       .then(response => response.json())
@@ -135,12 +138,12 @@ class NWCustomerFetch extends Component {
       }
     }
     else {
-      viesti = "Ladataan tietoja Northwind-tietokannasta..."
+      viesti = "Tuodaan tietoja..."
     }
     //Ehdollinen return
     if (this.state.visible === "table") {
       return (<div className="box1">
-        <h1>Tietokantahaku</h1>
+        <h1>Asiakashallinta</h1>
         <button onClick={this.handleClickHelp}>Näytä opaste</button>
         <button onClick={this.handleClickAdd}>Lisää asiakas</button>
         <button onClick={this.handleClickPrev}>Edelliset</button>
@@ -197,7 +200,6 @@ class NWCustomerFetch extends Component {
       </div>
       );
     }
-
 
   }
 }

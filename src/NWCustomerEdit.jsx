@@ -113,7 +113,10 @@ class NWCustomerEdit extends Component {
         // send an asynchronous request to the backend
         const asiakasJson = JSON.stringify(asiakas);
         console.log("asiakasJson = ", asiakasJson);
-        const apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
+
+        //let apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
+
+        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/customers/' + this.state.CustomerID;
 
         fetch(apiUrl, {
             method: "PUT",
@@ -136,16 +139,25 @@ class NWCustomerEdit extends Component {
     render() {
         return (
             <form className="box3" onSubmit={this.handleSubmit}>
-                <input type="text" value={this.state.CustomerID} title="Syötä asiakastunnus" placeholder="CustomerID" onChange={this.handleChangeCustomerID} />
+                {/* <input type="text" value={this.state.CustomerID} title="Syötä asiakastunnus" placeholder="CustomerID" onChange={this.handleChangeCustomerID} /> */}
+                <label>Yritys</label><br />
                 <input type="text" value={this.state.CompanyName} placeholder="CompanyName" onChange={this.handleChangeCompanyName} />
-                <input type="text" value={this.state.ContactName} placeholder="ContactName" onChange={this.handleChangeContactName} />
-                <input type="text" value={this.state.ContactTitle} placeholder="ContactTitle" onChange={this.handleChangeContactTitle} />
-                <input type="text" value={this.state.Address} placeholder="Address" onChange={this.handleChangeAddress} />
-                <input type="text" value={this.state.PostalCode} placeholder="PostalCode" onChange={this.handleChangePostalCode} />
-                <input type="text" value={this.state.City} placeholder="City" onChange={this.handleChangeCity} />
-                <input type="text" value={this.state.Country} placeholder="Country" onChange={this.handleChangeCountry} />
-                <input type="text" value={this.state.Phone} placeholder="Phone" onChange={this.handleChangePhone} />
-                <input type="text" value={this.state.Fax} placeholder="Fax" onChange={this.handleChangeFax} />
+                <label>Yhteyshenkilö</label><br />
+                <input type="text" value={this.state.ContactName} placeholder="ContactName" onChange={this.handleChangeContactName} /><br />
+                <label>Titteli</label><br />
+                <input type="text" value={this.state.ContactTitle} placeholder="ContactTitle" onChange={this.handleChangeContactTitle} /><br />
+                <label>Osoite</label><br />
+                <input type="text" value={this.state.Address} placeholder="Address" onChange={this.handleChangeAddress} /><br />
+                <label>Postinro</label><br />
+                <input type="text" value={this.state.PostalCode} placeholder="PostalCode" onChange={this.handleChangePostalCode} /><br />
+                <label>Kaupunki</label><br />
+                <input type="text" value={this.state.City} placeholder="City" onChange={this.handleChangeCity} /><br />
+                <label>Maa</label><br />
+                <input type="text" value={this.state.Country} placeholder="Country" onChange={this.handleChangeCountry} /><br />
+                <label>Puh</label><br />
+                <input type="text" value={this.state.Phone} placeholder="Phone" onChange={this.handleChangePhone} /><br />
+                <label>Fax</label><br />
+                <input type="text" value={this.state.Fax} placeholder="Fax" onChange={this.handleChangeFax} /><br />
                 <br />
                 <button type="submit">Talleta muutokset</button>
             </form>

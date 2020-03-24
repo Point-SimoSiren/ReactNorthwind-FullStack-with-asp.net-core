@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import md5 from 'md5'
 import './App.css'
 
 class UserEdit extends Component {
     constructor(props) {
+
         super(props)
         this.state = {
             UserObj: [], LoginID: '',
@@ -14,8 +14,6 @@ class UserEdit extends Component {
         this.handleChangeLastName = this.handleChangeLastName.bind(this)
         this.handleChangeEmail = this.handleChangeEmail.bind(this)
         this.handleChangeUserName = this.handleChangeUserName.bind(this)
-        this.handleChangePassword = this.handleChangePassword.bind(this)
-        this.handleChangePasswordAgain = this.handleChangePasswordAgain.bind(this)
         this.handleChangeAccesslevelID = this.handleChangeAccesslevelID.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -45,34 +43,11 @@ class UserEdit extends Component {
         var syöte = event.target.value
         this.setState({ ...this.state, AccesslevelID: syöte })
     }
-    handleChangePassword(event) {
-        var syöte = md5(event.target.value)
-        this.setState({ ...this.state, Password: syöte })
-    }
-    //__________Salasanan tuplatarkistus_______________
 
-    handleChangePasswordAgain(event) {
-        var syöte = md5(event.target.value)
-        this.setState({ ...this.state, PasswordAgain: syöte })
-
-        if (this.state.Password !== syöte) {
-            this.setState({ Match: 'Salasanat eivät täsmää.' })
-        }
-        else {
-            this.setState({ Match: 'No nyt täsmää!' })
-        }
-    }
-    //_________________Salananan samuuden tarkistus myös lomakkeen lähetyksessä________
 
     handleSubmit(event) {
         event.preventDefault()
-        if (this.state.Password === this.state.PasswordAgain) {
-            alert('Lähetettiin uusi käyttäjä: ' + this.state.FirstName + ' ' + this.state.LastName)
-            this.InsertoiKantaan()
-        }
-        else {
-            alert('Salasanakentät eivät täsmää. Yritä uudelleen.')
-        }
+        this.InsertoiKantaan()
     }
 
     callBackRoutine() {
@@ -82,32 +57,34 @@ class UserEdit extends Component {
     componentDidMount() {
 
         this.setState({
-            LoginID: this.props.userObject.LoginId,
-            FirstName: this.props.userObject.Firstname,
-            LastName: this.props.userObject.Lastname,
-            Email: this.props.userObject.Email,
-            UserName: this.props.userObject.Username,
-            //Password: this.props.userObject.Password,
-            //PasswordAgain: this.props.userObject.Password,
-            AccesslevelID: this.props.userObject.AccesslevelId
+            LoginID: parseInt(this.props.userObj.loginId),
+            FirstName: this.props.userObj.firstname,
+            LastName: this.props.userObj.lastname,
+            Email: this.props.userObj.email,
+            UserName: this.props.userObj.username,
+            AccesslevelID: parseInt(this.props.userObj.accesslevelId)
         })
+
     }
 
     InsertoiKantaan() {
         const updatedUser = {
-            LogindId: this.state.LogindID,
+            LoginId: this.props.userObj.loginId,
             Firstname: this.state.FirstName,
             Lastname: this.state.LastName,
             Email: this.state.Email,
             Username: this.state.UserName,
-            Password: this.state.Password,
-            AccesslevelID: parseInt(this.state.accesslevelID)
+            Password: this.state.UserName,
+            AccesslevelId: parseInt(this.state.AccesslevelID)
         }
 
         const userJson = JSON.stringify(updatedUser)
         console.log("userJson = ", userJson)
 
-        const apiUrl = 'https://localhost:5002/api/logins/' + this.state.LoginID
+        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/logins' + this.props.userObj.loginId
+
+        //const apiUrl = 'https://localhost:5002/nw/logins/' + this.props.userObj.loginId
+
         fetch(apiUrl, {
             method: "PUT",
             headers: {
@@ -118,32 +95,36 @@ class UserEdit extends Component {
         }).then((response) => response.json())
             .then((json) => {
                 const success = json
-                console.log(`Response from server: ${success}.`)
+                alert(success);
                 if (success) {
-                    this.dismiss()
+                    console.log("Pyyntö asiakkaan päivittämiseksi tehty -- -- -- -- --");
+                    this.dismiss();
                 }
-            })
+            });
     }
 
+
     render() {
+
         return (
             <form className="box3" onSubmit={this.handleSubmit}>
+                <label>Etunimi</label><br />
+                <input type="text" value={this.state.FirstName} placeholder="Etunimi" onChange={this.handleChangeFirstName} />
 
-                <input type="text" value={this.state.FirstName} placeholder="FirstName" onChange={this.handleChangeFirstName} />
+                <label>Sukunimi</label>
+                <input type="text" value={this.state.LastName} placeholder="Sukunimi" onChange={this.handleChangeLastName} />
 
-                <input type="text" value={this.state.LastName} placeholder="LastName" onChange={this.handleChangeLastName} />
-
+                <label>Sähköposti</label>
                 <input type="text" value={this.state.Email} placeholder="Email" onChange={this.handleChangeEmail} />
 
-                <input type="text" value={this.state.UserName} placeholder="UserName" onChange={this.handleChangeUserName} />
+                <label>Käyttäjätunnus</label>
+                <input type="text" value={this.state.UserName} placeholder="Käyttäjätunnus" onChange={this.handleChangeUserName} />
 
-                <input type="text" value={this.state.Password} placeholder="Password" onChange={this.handleChangePassword} />
-
-                <input type="text" value={this.state.PasswordAgain} placeholder="Password again" onChange={this.handleChangePasswordAgain} />
-
-                <input type="text" value={this.state.AccesslevelID} placeholder="AccesslevelID" onChange={this.handleChangeAccesslevelID} />
-                <br />
+                <label>Käyttäjätaso</label>
+                <input type="text" value={this.state.AccesslevelID} placeholder="Käyttäjätaso" onChange={this.handleChangeAccesslevelID} />
+                <br /><br />
                 <button type="submit">Talleta muutokset</button>
+                <p>Salasanaa ei voi muokata tässä näkymässä.</p>
             </form>
         )
     }

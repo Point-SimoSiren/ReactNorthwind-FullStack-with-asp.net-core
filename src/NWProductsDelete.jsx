@@ -33,7 +33,10 @@ class NWProductsDelete extends Component {
 
     NWDeleteRestApista() {
 
-        const apiUrl = 'https://localhost:5002/nw/products/' + this.props.tuoteObj.productId
+        //const apiUrl = 'https://localhost:5002/nw/products/' + this.props.tuoteObj.productId
+
+        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/products/' + this.props.tuoteObj.productId;
+
         fetch(apiUrl, {
             method: 'DELETE',
             headers: {
@@ -52,6 +55,7 @@ class NWProductsDelete extends Component {
     }
     render() {
         return (
+
             <form className='box4' key={this.props.tuoteObj.productId}
                 onSubmit={this.handlePerformDelete}>
                 <table id='deletetbl'>
