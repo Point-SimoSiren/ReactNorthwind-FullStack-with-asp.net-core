@@ -75,10 +75,10 @@ class NWProductsFetch extends Component {
 
     HaeNWRestApista() {
 
-        let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/Products/r?offset= ${this.state.start} &limit= ${this.state.take}`
+        /*let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/Products/r?offset= ${this.state.start} &limit= ${this.state.take}`*/
 
-        //let uri = `https://localhost:5002/nw/Products/r?offset= ${this.state.start}
-        //&limit= ${this.state.take}`
+        let uri = `https://localhost:5002/nw/Products/r?offset= ${this.state.start}
+        &limit= ${this.state.take}`
 
         fetch(uri)
             .then(response => response.json())

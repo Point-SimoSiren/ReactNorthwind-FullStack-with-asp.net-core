@@ -153,7 +153,7 @@ class UserFetch extends Component {
                     <button onClick={this.handleClickHelp}>Näytä opaste</button>
                     <button onClick={this.handleClickTable}>Selaa käyttäjiä</button>
                 </div>
-                {this.state.renderChildAdd ? <UserAdd unmountMe={this.handleChildUnmountAdd} /> : null}
+                {this.state.renderChildAdd && <UserAdd unmountMe={this.handleChildUnmountAdd} />}
             </div>
             );
         }

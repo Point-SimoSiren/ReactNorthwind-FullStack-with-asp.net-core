@@ -84,7 +84,10 @@ class NWCustomerFetch extends Component {
     //let uri = `https://localhost:5002/nw/customers/r?offset= ${this.state.start}
     //&limit= ${this.state.take}`
 
-    let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/customers/r?offset= ${this.state.start} &limit= ${this.state.take}`
+    let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/customers/r?offset= 
+    ${this.state.start} &limit= ${this.state.take}`
+
+
 
     console.log("HaeOmaRestistä ", uri);
     fetch(uri)
@@ -120,7 +123,10 @@ class NWCustomerFetch extends Component {
     let taulukko = [];
     //Luodaan taulukon otsikot
     let tHeaders = <tr><th>Asiakkaan ID</th><th>Yrityksen nimi</th><th>Yhteyshenkilö</th>
+
       <th>Kaupunki</th><th>Puhelin</th></tr>
+
+
 
     if (this.state.asiakkaat.length > 0) {
       for (let index = 0; index < this.state.asiakkaat.length; index++) {
@@ -134,7 +140,11 @@ class NWCustomerFetch extends Component {
           <td>{element.phone}</td>
           <td><button onClick={this.handleClickEdit.bind(this, element)}>Muokkaa</button></td>
           <td><button onClick={this.handleClickDelete.bind(this, element)}>Poista</button></td>
-        </tr>);
+        </tr>
+
+
+        );
+
       }
     }
     else {
@@ -150,6 +160,7 @@ class NWCustomerFetch extends Component {
         <button onClick={this.handleClickNext}>Seuraavat</button>
         <table className="table table-dark" id="t01"><thead>{tHeaders}</thead><tbody>{taulukko}</tbody></table>
         <p>{viesti}</p>
+        <p>Tila on nyt {this.state.start}</p>
       </div>
       );
     } else if (this.state.visible === "addform") {
