@@ -77,7 +77,12 @@ class NWProductsFetch extends Component {
 
         /*let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/Products/r?offset= ${this.state.start} &limit= ${this.state.take}` */
 
-        let uri = `https://localhost:5002/nw/Products/r?offset= ${this.state.start}
+        /*let uri = `https://localhost:5002/nw/Products/r?offset= ${this.state.start}
+        &limit= ${this.state.take}`*/
+
+        const baseurl = process.env.REACT_APP_BASE_URL
+
+        let uri = `${baseurl}Products/r?offset= ${this.state.start}
         &limit= ${this.state.take}`
 
         fetch(uri)
