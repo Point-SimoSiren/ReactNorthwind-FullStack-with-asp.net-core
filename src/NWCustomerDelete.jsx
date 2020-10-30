@@ -114,9 +114,9 @@ class NWCustomerDelete extends Component {
     }
 
     NWDeleteRestApista() {
-        //let apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
+        let apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
 
-        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/customers/' + this.state.CustomerID;
+        //let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/customers/' + this.state.CustomerID;
 
         console.log("NWDeleteRestApista " + apiUrl);
         fetch(apiUrl, {
@@ -161,9 +161,9 @@ class NWCustomerDelete extends Component {
                 </table>
                 <br />
                 <h5>Seuraavaksi suoritetaan tarkistus tietokannassa.
-                    Mikäli asiakkaalla on tilauksia, ei poistoa suoriteta. Onnistuneesta poistosta tulee ilmoitus.
-                    Estetty poisto tulostaa kattavan raportin palvelimelta, josta rivien
-                    4-6 kohdalla löytyy yleisimmin perussyy.
+                Mikäli asiakkaalla on tilauksia, ei poistoa suoriteta. Onnistuneesta poistosta tulee ilmoitus.
+                Estetty poisto tulostaa kattavan raportin palvelimelta, josta rivien
+                4-6 kohdalla löytyy yleisimmin perussyy.
                 </h5>
                 <button type="submit">Suorita</button>
             </form>

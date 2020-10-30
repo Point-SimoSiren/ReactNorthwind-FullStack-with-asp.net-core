@@ -64,9 +64,9 @@ class UserFetch extends Component {
 
     HaeNWRestApista() {
 
-        let uri = 'https://aspnet-react-northwind.azurewebsites.net/nw/logins'
+        //let uri = 'https://aspnet-react-northwind.azurewebsites.net/nw/logins'
 
-        //let uri = 'https://localhost:5002/nw/logins'
+        let uri = 'https://localhost:5002/nw/logins'
 
         console.log('Haetaan rest apista: ', uri)
         fetch(uri)

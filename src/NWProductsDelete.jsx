@@ -33,9 +33,9 @@ class NWProductsDelete extends Component {
 
     NWDeleteRestApista() {
 
-        //const apiUrl = 'https://localhost:5002/nw/products/' + this.props.tuoteObj.productId
+        let apiUrl = 'https://localhost:5002/nw/products/' + this.props.tuoteObj.productId
 
-        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/products/' + this.props.tuoteObj.productId;
+        /*let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/products/' + this.props.tuoteObj.productId;*/
 
         fetch(apiUrl, {
             method: 'DELETE',

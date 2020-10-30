@@ -100,9 +100,9 @@ class NWProductsAdd extends Component {
         const tuoteJson = JSON.stringify(tuote)
         console.log('tuoteJson _____-----______ = ', tuoteJson)
 
-        //let apiUrl = "https://localhost:5002/nw/products"
+        let apiUrl = "https://localhost:5002/nw/products"
 
-        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/products'
+        /*let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/products'*/
 
         fetch(apiUrl, {
             method: "POST",
@@ -130,7 +130,7 @@ class NWProductsAdd extends Component {
 
                 <input type="text" placeholder="Tuotenimi" onChange={this.handleChangeProductName} />
 
-                <input type="text" placeholder="Toimittaja id" onChange={this.handleChangeSupplierID} />
+                <input type="number" placeholder="Toimittaja id" onChange={this.handleChangeSupplierID} />
 
                 <input type="text" placeholder="Categoria id" onChange={this.handleChangeCategoryID} />
 

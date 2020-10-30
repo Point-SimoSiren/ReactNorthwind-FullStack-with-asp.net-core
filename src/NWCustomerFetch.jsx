@@ -81,11 +81,11 @@ class NWCustomerFetch extends Component {
 
   HaeNWRestApista() {
 
-    //let uri = `https://localhost:5002/nw/customers/r?offset= ${this.state.start}
-    //&limit= ${this.state.take}`
+    let uri = `https://localhost:5002/nw/customers/r?offset= ${this.state.start}
+    &limit= ${this.state.take}`
 
-    let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/customers/r?offset= 
-    ${this.state.start} &limit= ${this.state.take}`
+    /*let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/customers/r?offset= 
+    ${this.state.start} &limit= ${this.state.take}`*/
 
 
 

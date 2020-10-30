@@ -125,9 +125,9 @@ class NWProductsEdit extends Component {
         const tuoteJson = JSON.stringify(tuote);
         console.log("tuoteJson ------- ", tuoteJson);
 
-        //const apiUrl = 'https://localhost:5002/nw/products/' + this.state.ProductID;
+        let apiUrl = 'https://localhost:5002/nw/products/' + this.state.ProductID;
 
-        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/products/' + this.state.ProductID;
+        //let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/products/' + this.state.ProductID;
 
         console.log('----Käytetty url: -------- ', apiUrl)
 

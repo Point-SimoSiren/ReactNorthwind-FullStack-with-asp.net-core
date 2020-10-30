@@ -21,6 +21,7 @@ class Navigaatio extends Component {
               <li><Link to={'/NWProductsFetch'} className='nav-link'>Tuotehallinta</Link></li>
               <li><Link to={'/UserFetch'} className='nav-link'>Käyttäjähallinta</Link></li>
 
+
               <li style={{ marginLeft: '10%' }}><a target="_blank" href='https://simon-saapalvelu.herokuapp.com' className='nav-link' title="Tämä on vain lisämausteena. Avautuu uuteen selainikkunaan.">Pohjoistuulta?</a></li>
 
             </ul>
@@ -31,6 +32,7 @@ class Navigaatio extends Component {
             <Route path='/NWCustomerFetch' component={NWCustomerFetch} />
             <Route path='/NWProductsFetch' component={NWProductsFetch} />
             <Route path='/UserFetch' component={UserFetch} />
+
           </Switch>
         </div>
       </Router>

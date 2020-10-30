@@ -114,9 +114,9 @@ class NWCustomerEdit extends Component {
         const asiakasJson = JSON.stringify(asiakas);
         console.log("asiakasJson = ", asiakasJson);
 
-        //let apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
+        let apiUrl = 'https://localhost:5002/nw/customers/' + this.state.CustomerID;
 
-        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/customers/' + this.state.CustomerID;
+        //let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/customers/' + this.state.CustomerID;
 
         fetch(apiUrl, {
             method: "PUT",

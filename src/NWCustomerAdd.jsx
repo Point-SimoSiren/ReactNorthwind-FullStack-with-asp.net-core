@@ -90,9 +90,9 @@ class NWCustomerAdd extends Component {
         const asiakasJson = JSON.stringify(asiakas);
         console.log("asiakasJson = " + asiakasJson);
 
-        //let apiUrl = 'https://localhost:5002/nw/customers'
+        let apiUrl = 'https://localhost:5002/nw/customers'
 
-        let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/customers/'
+        //let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/customers/'
 
         fetch(apiUrl, {
             method: "POST",
