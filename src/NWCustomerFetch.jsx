@@ -4,12 +4,12 @@ import './App.css';
 import NWCustomerAdd from './NWCustomerAdd';
 import NWCustomerEdit from './NWCustomerEdit';
 import NWCustomerDelete from './NWCustomerDelete';
+import axios from 'axios'
 
 class NWCustomerFetch extends Component {
 
   constructor(props) {
     super(props);
-    console.log("NWCustomerFetch-komponentti: constructor");
     this.state = {
       asiakkaat: [],
       start: 0,
@@ -86,19 +86,17 @@ class NWCustomerFetch extends Component {
     let uri = `https://localhost:5001/nw/customers/r?offset= ${this.state.start}
     &limit= ${this.state.take}`
 
-    /*let uri = `https://aspnet-react-northwind.azurewebsites.net/nw/customers/r?offset= 
-    ${this.state.start} &limit= ${this.state.take}`*/
-
-    let headers = { "Content-Type": "application/json" };
-    if (jwtoken) {
-      headers["Authorization"] = `Token ${jwtoken}`;
+    let config = {
+      headers: {
+        Authorization: "Bearer " + jwtoken
+      }
     }
-
-    fetch(uri, { headers, })
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        this.setState({ asiakkaat: json }); //Viedään tulosjoukko (json) setState-komennolla asiakkaat -olioon
+    axios.get(uri, config)
+      .then(response => {
+        this.setState({ asiakkaat: response.data })
+      })
+      .catch((error) => {
+        console.log(error)
       });
   }
 
