@@ -5,7 +5,7 @@ class NWProductsAdd extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            ProductName: '', SupplierID: '', CategoryID: '', QuantityPerUnit: '',
+            ProductName: '', SupplierID: '', CategoryID: 0, QuantityPerUnit: '',
             UnitPrice: '', UnitsInStock: '', UnitsOnOrder: '', ReorderLevel: '', Discontinued: false
         }
 
