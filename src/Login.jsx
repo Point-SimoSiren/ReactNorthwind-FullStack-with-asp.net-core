@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import md5 from 'md5'
+//import md5 from 'md5'
 import './App.css'
 
 class Login extends Component {
@@ -8,10 +8,23 @@ class Login extends Component {
         this.state = {
             Username: '',
             Password: '',
+            ShowLoginForm: true,
+            LoggedInUser: ''
         }
         this.handleChangeUserName = this.handleChangeUserName.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+    componentDidMount() {
+        const userFromLS = localStorage.getItem('user')
+        if (userFromLS) {
+            this.setState({ ...this.state, ShowLoginForm: false, LoggedInUser: userFromLS })
+        }
+    }
+
+    logout() {
+        localStorage.clear()
+        this.setState({ ...this.state, LoggedInUser: '', ShowLoginForm: true })
     }
 
     handleChangeUserName(event) {
@@ -52,24 +65,40 @@ class Login extends Component {
         }).then((response) => response.json())
             .then((json) => {
                 const success = json
-                console.log(success.username)
-                alert("Tervetuloa " + success.username)
+                if (success.username === undefined) {
+                    alert("Kirjautuminen epäonnistui")
+                }
+                else {
+                    localStorage.setItem('user', success.username)
+                    localStorage.setItem('token', success.token)
+                    this.setState({ ...this.state, LoggedInUser: success.username, ShowLoginForm: false })
+                }
             })
     }
 
     render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
+        if (this.state.ShowLoginForm === true) {
+            return (
+                <form onSubmit={this.handleSubmit}>
 
-                <input type="text" placeholder="UserName"
-                    onChange={this.handleChangeUserName} />
+                    <input type="text" placeholder="UserName"
+                        onChange={this.handleChangeUserName} />
 
-                <input type="password" placeholder="Password" onChange={this.handleChangePassword} />
+                    <input type="password" placeholder="Password" onChange={this.handleChangePassword} />
 
-                <br />
-                <button type="submit">Kirjaudu</button>
-            </form>
-        );
+                    <br />
+                    <button type="submit">Kirjaudu</button>
+                </form>
+            )
+        }
+        else {
+            return (
+                <>
+                    <h3>Kirjautunut käyttäjä {this.state.LoggedInUser}</h3>
+                    <button onClick={() => this.logout()}>Kirjaudu ulos</button>
+                </>
+            )
+        }
     }
 }
 

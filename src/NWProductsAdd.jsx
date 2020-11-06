@@ -100,7 +100,7 @@ class NWProductsAdd extends Component {
         const tuoteJson = JSON.stringify(tuote)
         console.log('tuoteJson _____-----______ = ', tuoteJson)
 
-        let apiUrl = "https://localhost:5002/nw/products"
+        let apiUrl = "https://localhost:5001/nw/products"
 
         /*let apiUrl = 'https://aspnet-react-northwind.azurewebsites.net/nw/products'*/
 

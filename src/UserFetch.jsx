@@ -66,7 +66,7 @@ class UserFetch extends Component {
 
         //let uri = 'https://aspnet-react-northwind.azurewebsites.net/nw/logins'
 
-        let uri = 'https://localhost:5002/nw/logins'
+        let uri = 'https://localhost:5001/nw/logins'
 
         console.log('Haetaan rest apista: ', uri)
         fetch(uri)

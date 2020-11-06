@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Clock from 'react-clock';
-import { withRouter } from 'react-router-dom';
 
 class AnalogWatch extends Component {
     constructor(props) {
